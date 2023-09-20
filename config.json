@@ -1,0 +1,15 @@
+{
+    "mock": {
+      "batch_size": 3,
+      "n_skill" : 10,
+      "max_epoch" : 1,
+      "max_len" : 10,
+      "n_uids" : 3,
+      "num_workers" : 1,
+      "emb_dim": 64,
+      "learning_rate" : 0.001
+    },
+    "Assist2009": {
+      "learning_rate" : 0.001
+    }
+}
