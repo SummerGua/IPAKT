@@ -1,4 +1,9 @@
 __pycache__/
 */__pycache__
-/data/raw/
 /data/processed/
+/data/raw/
+/data/
+/checkpoint/assist09/*
+/checkpoint/assist12/*
+/checkpoint/assist17/*
+/test.py

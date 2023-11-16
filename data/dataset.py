@@ -17,22 +17,22 @@ class MyDataset(Dataset):
     - length of sequence here should be < max_len
     - each time_used should be <= 300
     '''
-    skill_id         = self.df['concept'][index].split(',')
+    skill_id         = self.df['skill_id'][index].split(',')
     difficulty       = self.df['difficulty'][index].split(',')
-    gap_time         = self.df['gap_time'][index].split(',')
-    answer           = self.df['answer'][index].split(',')
-    time_used        = self.df['time_used'][index].split(',')
-    hints            = self.df['hints'][index].split(',')
+    # gap_time         = self.df['gap_time'][index].split(',')
+    answer           = self.df['correct'][index].split(',')
+    time_used        = self.df['ms_first_response'][index].split(',')
+    hints            = self.df['hint_count'][index].split(',')
 
     skill_id         = np.array(list(map(int,   skill_id)))
     difficulty_level = np.array(list(map(float, difficulty))) * 100
     difficulty_level = difficulty_level.astype(int)
-    gap_time         = np.array(list(map(int,   gap_time)))
+    # gap_time         = np.array(list(map(int,   gap_time)))
     answer           = np.array(list(map(int,   answer)))
     time_used        = np.array(list(map(int,   time_used)))
     hints            = np.array(list(map(int,   hints)))
 
-    assert len(answer) == len(time_used) == len(gap_time) == \
+    assert len(answer) == len(time_used) == \
            len(difficulty_level) == len(skill_id) == len(hints)
 
     current_len = len(answer) # actual length of current sequence
@@ -57,8 +57,8 @@ class MyDataset(Dataset):
     diff_level = np.ones(self.max_len, dtype=int) * 101
     diff_level[:current_len] = difficulty_level
 
-    gap = np.ones(self.max_len, dtype=int) * 301
-    gap[:current_len] = gap_time
+    # gap = np.ones(self.max_len, dtype=int) * 301
+    # gap[:current_len] = gap_time
 
     n_hints = np.ones(self.max_len, dtype=int) * 11
     n_hints[:current_len] = hints
@@ -69,7 +69,7 @@ class MyDataset(Dataset):
       torch.LongTensor(a),
       torch.LongTensor(t_used),
       torch.LongTensor(n_hints),
-      torch.LongTensor(gap),
+      # torch.LongTensor(gap),
       torch.LongTensor(truth),
       torch.LongTensor(mask),
     )

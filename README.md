@@ -1,12 +1,21 @@
-# SSL KT Model II
+# Improving Knowledge Tracing via Considering Students' Interaction Patterns
 
-Pytorch Implementation of "SSL KT Model II"
+Pytorch Implementation
 
 ## Architecture
-![](./imgs/model.jpg)
+![](./imgs/model.svg)
 
 ## Usage
-- ASSISTments2009 Skill Builder [[Analysis by USTC](https://edudata.readthedocs.io/en/latest/build/blitz/ASSISTments/ASSISTments2009-2010.html)]
-- ASSISTments2017 [[Analysis by USTC](https://edudata.readthedocs.io/en/latest/build/blitz/ASSISTments/ASSISTments2017.html)]
-- EdNet [[Analysis by USTC](https://edudata.readthedocs.io/en/latest/build/blitz/EdNet_KT1/EdNet_KT1.html)]
-- KDD CUP 2010 [[Analysis by USTC](https://edudata.readthedocs.io/en/latest/build/blitz/KDD%20Cup%202010.html)]
+put processed data under `./data/processed/assist[09/12/17]/`
+
+data file name: `assist[09/12/17]_processed.csv`
+
+processed data format:
+```csv
+user_id,skill_id,correct,ms_first_response,hint_count,difficulty
+70657,"8,8,3,3","0,0,0,0","63,24,63,24","0,0,0,0","0.84,0.66,0.84,0.66"
+```
+
+run:
+
+- `python main.py --dataset assist[09/12/17]`

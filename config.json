@@ -2,14 +2,41 @@
     "mock": {
       "batch_size": 3,
       "n_skill" : 10,
-      "max_epoch" : 1,
+      "max_epoch" : 30,
       "max_len" : 10,
       "n_uids" : 3,
       "num_workers" : 1,
       "emb_dim": 64,
       "learning_rate" : 0.001
     },
-    "Assist2009": {
+    "assist09": {
+      "batch_size": 32,
+      "n_skill" : 111,
+      "max_epoch" : 150,
+      "max_len" : 200,
+      "n_uids" : 9999,
+      "num_workers" : 1,
+      "emb_dim": 50,
+      "learning_rate" : 0.001
+    },
+    "assist12": {
+      "batch_size": 32,
+      "n_skill": 259,
+      "max_epoch" : 200,
+      "max_len" : 200,
+      "n_uids" : 9999,
+      "num_workers" : 1,
+      "emb_dim": 50,
+      "learning_rate" : 0.001
+    },
+    "assist17": {
+      "batch_size": 32,
+      "n_skill": 102,
+      "max_epoch" : 200,
+      "max_len" : 200,
+      "n_uids" : 9999,
+      "num_workers" : 1,
+      "emb_dim": 50,
       "learning_rate" : 0.001
     }
 }
