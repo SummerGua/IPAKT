@@ -5,7 +5,7 @@ import pandas as pd
 import os
 
 def getDataloder(dataset_name, n_skill, max_len=200, num_workers=1, batch_size=16):
-  print("train on %s......"%dataset_name)
+  print("make dataloader on %s......"%dataset_name)
   current_dir = os.path.dirname(os.path.abspath(__file__))
   raw_path = "./processed/%s/%s_processed.csv"%(dataset_name, dataset_name)
   train_path = "./processed/%s/%s_train.csv"%(dataset_name, dataset_name)

@@ -1,9 +1,10 @@
 __pycache__/
 */__pycache__
-/data/processed/
-/data/raw/
-/data/
+/data/processed/*
+!data/assist09-preprocess.ipynb
+/data/raw/*
 /checkpoint/assist09/*
 /checkpoint/assist12/*
 /checkpoint/assist17/*
+/checkpoint/mock
 /test.py

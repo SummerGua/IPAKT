@@ -10,6 +10,8 @@ import datetime
 
 def run(args):
   device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+  # device = torch.device('cpu')
+
   # load config
   dataset_name = args.dataset
 
@@ -34,7 +36,7 @@ def run(args):
   train_dataloader, test_dataloader = getDataloder(dataset_name, n_skill, max_len, num_workers, batch_size)
 
   # load model and optimizer
-  model = KTModel(n_skill, 100, 10, 300, max_len, emb_dim, batch_size)
+  model = KTModel(n_skill, 100, 10, 300, max_len, emb_dim)
   model.to(device)
   loss_fun = KTLoss()
   loss_fun.to(device)
@@ -45,13 +47,14 @@ def run(args):
   for epoch in tqdm(range(max_epoch)):
     utils.train_one_epoch(model, train_dataloader, optimizer, loss_fun, device)
     utils.eval_one_epoch(model, test_dataloader, device, dataset_name, epoch)
-    if epoch >= 49 and epoch < 120 and (epoch+1) % 5 == 0:
+    if epoch >= 100 and (epoch+1) % 5 == 0:
       checkpoint = {
         'model': model.state_dict(),
         'potimizer': optimizer.state_dict(),
         'epoch': epoch
       }
-      torch.save(checkpoint,'./checkpoint/%s/bs%sdim%slen%s-epoch%s.pth' % (dataset_name, str(batch_size), str(emb_dim), str(max_len), str(epoch+1)))
+      if dataset_name != "mock":
+        torch.save(checkpoint,'./checkpoint/%s/bs%sdim%slen%s-epoch%s.pth' % (dataset_name, str(batch_size), str(emb_dim), str(max_len), str(epoch+1)))
     scheduler.step()
 
 if __name__ == "__main__":
@@ -59,7 +62,7 @@ if __name__ == "__main__":
   arg_parser = argparse.ArgumentParser(description="Ready to train...")
   arg_parser.add_argument("--dataset",
                           dest="dataset",
-                          default="assist12",
+                          default="mock",
                           type=str,
                           required=False)
   args = arg_parser.parse_args()
