@@ -56,7 +56,6 @@ class KTModel(nn.Module):
                 torch.zeros(bs, self.emb_dim).to(self.device))
 
     y_preds = []
-    y_preds.append(torch.zeros(bs).to(self.device))
 
     for t in range(self.max_len-1):
       x_t = x[:, t, :] # batch_size, emb_dim
@@ -96,5 +95,6 @@ class KTModel(nn.Module):
       _y_pred = torch.sigmoid(torch.sum(x_next * h_t, dim=1))
       y_preds.append(_y_pred)
 
+    y_preds.append(torch.zeros(bs).to(self.device))
     y_pred = torch.stack(y_preds, dim=1)
     return y_pred

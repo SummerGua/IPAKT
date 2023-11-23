@@ -15,8 +15,8 @@ def train_one_epoch(model, dataloader, optimizer, loss_fun, device):
 
         optimizer.zero_grad()
         preds = model(q, a, diff_level, n_hints, t_used)
-        mask_truth = mask.gt(0).view(-1)
-        mask_preds = mask.gt(0.5).view(-1)
+        mask_truth = mask.gt(0.1).view(-1)
+        mask_preds = ((mask < 1) & (mask > 0)).view(-1)
         preds = torch.masked_select(preds.view(-1), mask_preds)
         truth = torch.masked_select(truth.view(-1), mask_truth)
         loss = loss_fun(preds, truth)
@@ -27,6 +27,8 @@ def eval_one_epoch(model, dataloader, device, dataset, epoch):
     model.eval()
     aucs = []
     accs = []
+    if epoch % 2 ==0:
+        return
     for i, (q, diff_level, a, t_used, n_hints, truth, mask) in enumerate(dataloader):
         q = q.to(device)
         diff_level = diff_level.to(device)
@@ -38,8 +40,8 @@ def eval_one_epoch(model, dataloader, device, dataset, epoch):
 
         with torch.no_grad():
             preds = model(q, a, diff_level, n_hints, t_used)
-        mask_truth = mask.gt(0).view(-1)
-        mask_preds = mask.gt(0.5).view(-1)
+        mask_truth = mask.gt(0.1).view(-1)
+        mask_preds = ((mask < 1) & (mask > 0)).view(-1)
         preds = torch.masked_select(preds.view(-1), mask_preds).cpu()
         truth = torch.masked_select(truth.view(-1), mask_truth).cpu()
 

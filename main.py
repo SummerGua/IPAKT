@@ -62,7 +62,7 @@ if __name__ == "__main__":
   arg_parser = argparse.ArgumentParser(description="Ready to train...")
   arg_parser.add_argument("--dataset",
                           dest="dataset",
-                          default="mock",
+                          default="assist09",
                           type=str,
                           required=False)
   args = arg_parser.parse_args()

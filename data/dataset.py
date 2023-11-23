@@ -39,9 +39,10 @@ class MyDataset(Dataset):
     truth[:current_len] = answer
 
     # mask the predicted values
-    mask = np.zeros(self.max_len, dtype=int)
-    mask[:current_len] = 1 # take 1st~len-1 prediction
-    mask[0] = 0.5 # take 2nd~last truth
+    mask = np.zeros(self.max_len, dtype=float)
+    mask[:current_len-1] = 0.5
+    mask[current_len-1] = 1 # take 1st~len-1 prediction
+    mask[0] = 0.1 # take 2nd~last truth
 
     q = np.ones(self.max_len, dtype=int) * (self.n_skill + 1)
     q[:current_len] = skill_id
@@ -65,5 +66,5 @@ class MyDataset(Dataset):
       torch.LongTensor(t_used),
       torch.LongTensor(n_hints),
       torch.LongTensor(truth),
-      torch.LongTensor(mask),
+      torch.FloatTensor(mask),
     )
